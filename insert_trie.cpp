@@ -47,22 +47,24 @@ public:
         }
 
     }
-    void print_trie_util(Node *node){
-
-             cout<<node->data;
-
+    void print_trie_util(Node *node,string s,int level){
+        s.insert(level,node->data);
+        if(node->terminal){
+            cout<<s<<endl;
+        }
         unordered_map<char,Node*>::iterator it;
         for(it = node->next.begin();it!=node->next.end();it++){
-            print_trie_util(it->second);
-
+            print_trie_util(it->second,s,level+1);
         }
 
     }
     void print_trie(){
         Node *temp=root;
+        string s;
         unordered_map<char,Node*>::iterator it;
         for(it = temp->next.begin();it!=temp->next.end();it++){
-            print_trie_util(it->second);
+            print_trie_util(it->second,s,0);
+
             cout<<endl;
         }
     }
