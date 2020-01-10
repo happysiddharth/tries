@@ -23,24 +23,24 @@ void insert_in_trie(trie *head,int element){
     }
 }
 
-int find_max_xor(trie *head,int element){
+int find_min_xor(trie *head,int element){
     int current_xor = INT_MIN;
     int xor_ = 0;
     for(int i=31;i>=0;i--){
         int a = (element >> i) & 1;
         if(a==1){
-            if(head->left!=NULL){
-                xor_+=(int)pow(2,i);
-                head=head->left;
+            if(head->right!=NULL){
+                head=head->right;
             }else{
-                head = head->right;
+                 xor_ += (int)pow(2,i);
+                head = head->left;
             }
         }else{
-            if(head->right!=NULL){
+            if(head->left!=NULL){
+                head = head->left;
+            }else{
                 xor_+=(int)pow(2,i);
                 head = head->right;
-            }else{
-                head = head->left;
             }
         }
     }
@@ -50,12 +50,14 @@ int find_max_xor(trie *head,int element){
 int main()
 {
 
-    int ar[6] = {3, 10, 5, 25, 2, 8};
+    int ar[3] = {3,7,2};
     trie * head = new trie();
     int result=INT_MIN;
-    for(int i=0;i<6;i++){
-        insert_in_trie(head,ar[i]);
-         int newres = find_max_xor(head,ar[i]);
+    insert_in_trie(head,ar[0]);
+    for(int i=1;i<3;i++){
+
+         int newres = find_min_xor(head,ar[i]);
+         insert_in_trie(head,ar[i]);
          result = newres > result ? newres:result;
     }
     cout<<result;
