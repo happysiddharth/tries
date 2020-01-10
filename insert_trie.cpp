@@ -78,6 +78,9 @@ int main()
     t.addString("rupendra");
     t.addString("siddharth");
     t.addString("ravi");
+    t.addString("raju");
+    t.addString("rajiv");
+    t.addString("rahul rathi");
     //t.searchTrie("siddharthsss");
     t.print_trie();
 }
